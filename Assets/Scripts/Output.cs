@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Output : MonoBehaviour {
 
+    public Bar bar;
     string fullText;
     TextMesh textmesh;
 
@@ -20,5 +21,6 @@ public class Output : MonoBehaviour {
     public void ReceiveInput(string input){
         fullText += input;
         textmesh.text += input;
+        bar.MoveBar(input);
     }
 }

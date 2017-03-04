@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 14e25b88dd0fba04f91e3dd165769ac4
+timeCreated: 1488627097
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Pseudo APL
+  fontNames:
+  - Pseudo APL
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
