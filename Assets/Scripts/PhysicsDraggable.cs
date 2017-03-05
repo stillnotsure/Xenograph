@@ -23,25 +23,11 @@ public class PhysicsDraggable : MonoBehaviour {
         {
             body = gameObject.GetComponent<Rigidbody2D>();
         }
-        setKinematic(true);
         body.WakeUp();
-    }
-
-    void setKinematic(bool a)
-    {
-        if (staticUnlessDragged)
-        {
-            body.isKinematic = a;
-            for (int i = 0; i < children.Count; i++)
-            {
-                children[i].isKinematic = a;
-            }
-        }
     }
 
     void OnMouseDown()
     {
-        setKinematic(false);
         Debug.Log("Grabbed " + transform.name);
         //This grabs the position of the object in the world and turns it into the position on the screen
         gameObjectSreenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
@@ -61,10 +47,6 @@ public class PhysicsDraggable : MonoBehaviour {
     {
         //Makes sure there isn't a ludicrous speed
         force = new Vector3(0, 0, 0);
-        if (staticUnlessDragged)
-        {
-            setKinematic(true);
-        }
     }
 
     public void FixedUpdate()
