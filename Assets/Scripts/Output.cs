@@ -7,20 +7,20 @@ public class Output : MonoBehaviour {
     public Bar bar;
     string fullText;
     TextMesh textmesh;
+    private Paper paper;
 
 	// Use this for initialization
 	void Start () {
         textmesh = gameObject.GetComponent<TextMesh>();
+        paper = GameObject.Find("Paper").GetComponent<Paper>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void ReceiveInput(string input){
-        fullText += input;
-        textmesh.text += input;
+        if (paper.inFrontOfInkPoint)
+        {
+            fullText += input;
+            textmesh.text += input;
+        }
         bar.MoveBar(input);
     }
 }

@@ -18,7 +18,6 @@ public class Key : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(inputKey)){
-            Debug.Log(outputKey);
             animator.SetBool("Pressed", true);
             SendMessage("KeyDown", true);
             SendOutput(outputKey);

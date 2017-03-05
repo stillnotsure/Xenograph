@@ -8,7 +8,9 @@ public class PhysicsDraggable : MonoBehaviour {
     private Vector3 mousePreviousLocation;
     private Vector3 mouseCurLocation;
     public bool externalBody = false;
+    public bool staticUnlessDragged = true;
     public Rigidbody2D body;
+    public List<Rigidbody2D> children;
 
     private Vector3 force;
     private Vector3 objectCurrentPosition;
@@ -21,15 +23,31 @@ public class PhysicsDraggable : MonoBehaviour {
         {
             body = gameObject.GetComponent<Rigidbody2D>();
         }
+        setKinematic(true);
+        body.WakeUp();
+    }
+
+    void setKinematic(bool a)
+    {
+        if (staticUnlessDragged)
+        {
+            body.isKinematic = a;
+            for (int i = 0; i < children.Count; i++)
+            {
+                children[i].isKinematic = a;
+            }
+        }
     }
 
     void OnMouseDown()
     {
+        setKinematic(false);
         Debug.Log("Grabbed " + transform.name);
         //This grabs the position of the object in the world and turns it into the position on the screen
         gameObjectSreenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
         //Sets the mouse pointers vector3
         mousePreviousLocation = new Vector3(Input.mousePosition.x, Input.mousePosition.y, gameObjectSreenPoint.z);
+
     }
 
     void OnMouseDrag()
@@ -42,8 +60,11 @@ public class PhysicsDraggable : MonoBehaviour {
     public void OnMouseUp()
     {
         //Makes sure there isn't a ludicrous speed
-        if (body.velocity.magnitude > topSpeed)
-            force = body.velocity.normalized * topSpeed;
+        force = new Vector3(0, 0, 0);
+        if (staticUnlessDragged)
+        {
+            setKinematic(true);
+        }
     }
 
     public void FixedUpdate()
