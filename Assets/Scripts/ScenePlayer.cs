@@ -57,6 +57,7 @@ public class ScenePlayer : MonoBehaviour {
         {
             Debug.Log(dialogue.dialogue);
             //DialogueSystem.newDialogue(dialogue);
+            gameObject.GetComponent<RecordChecker>().ReceiveDialogue(dialogue);
         }
     }
 }

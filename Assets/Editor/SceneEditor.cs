@@ -21,11 +21,14 @@ public class LevelDataEditor : Editor
                 new Rect(rect.x, rect.y, 60, EditorGUIUtility.singleLineHeight),
                 element.FindPropertyRelative("actor"), GUIContent.none);
             EditorGUI.PropertyField(
-                new Rect(rect.x + 60, rect.y, rect.width - 60 - 30, EditorGUIUtility.singleLineHeight),
+                new Rect(rect.x + 60, rect.y, 600, EditorGUIUtility.singleLineHeight),
                 element.FindPropertyRelative("dialogue"), GUIContent.none);
             EditorGUI.PropertyField(
-                new Rect(rect.x + rect.width - 30, rect.y, 30, EditorGUIUtility.singleLineHeight),
+                new Rect(rect.x + rect.width - 55, rect.y, 40, EditorGUIUtility.singleLineHeight),
                 element.FindPropertyRelative("timeStart"), GUIContent.none);
+            EditorGUI.PropertyField(
+                new Rect(rect.x + rect.width - 10, rect.y, 20, EditorGUIUtility.singleLineHeight),
+                element.FindPropertyRelative("marked"), GUIContent.none);
         };
     }
 

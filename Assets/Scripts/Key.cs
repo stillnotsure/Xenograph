@@ -5,14 +5,14 @@ using UnityEngine;
 public class Key : MonoBehaviour {
 
     private Animator animator;
-    private Output target;
+    private KeyManager manager;
     public string inputKey;
     public string outputKey;
 
 	// Use this for initialization
 	void Start () {
         animator = this.GetComponent<Animator>();
-        target = GameObject.FindGameObjectWithTag("Active Paper").GetComponent<Output>();
+        manager = GameObject.FindGameObjectWithTag("Input Device").GetComponent<KeyManager>();
 	}
 	
 	// Update is called once per frame
@@ -30,6 +30,10 @@ public class Key : MonoBehaviour {
 	}
 
     void SendOutput(string output){
-        target.ReceiveInput(output);
+        Output target = manager.GetTarget();
+        Debug.Log(manager);
+        Debug.Log(target);
+        if (target != null) target.ReceiveInput(output);
     }
+
 }

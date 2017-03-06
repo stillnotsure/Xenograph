@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Bar : MonoBehaviour {
 
+    private bool moving = false;
     public int lettersPerRow = 26;
     public float distancePerLetter = -0.1f;
     public float distancePerSpace = -0.07f;
-    public float distancePerLine = 0.2f;
+    public float distancePerLine = -0.2f;
     //public float distanceWhenFull = 26;
 
 	
@@ -26,7 +27,40 @@ public class Bar : MonoBehaviour {
 
     public void CarriageReturn()
     {
-        GameObject.FindGameObjectWithTag("Active Paper").GetComponent<TextMesh>().text += "\n";
+        /*
         GameObject.Find("Paper").transform.Translate(0, distancePerLine, 0);
+        */
+        GameObject paper = GameObject.FindGameObjectWithTag("Active Paper");
+        if (paper != null)
+        {
+            Debug.Log(paper.transform.FindChild("TextInput"));
+            paper.transform.FindChild("TextInput").GetComponent<TextMesh>().text += "\n";
+            paper.GetComponent<Paper>().MoveUp(distancePerLine);
+        }
+
+    }
+
+    IEnumerator MoveRight()
+    {
+        if (!moving)
+        { // do nothing if already moving
+            moving = true; // signals "I'm moving, don't bother me!"
+            float t = 0f;
+            float time = 1f / (1.42f - transform.position.x );
+            Debug.Log(time);
+            Vector3 targetPos = new Vector3(1.42f, transform.position.y, transform.position.z);
+            while (transform.position != targetPos)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 8);
+                yield return 0; // leave the routine and return here in the next frame
+            }
+            moving = false; // finished moving
+            CarriageReturn();
+        }
+    }
+
+    public void PullLever()
+    {
+        StartCoroutine(MoveRight());
     }
 }
