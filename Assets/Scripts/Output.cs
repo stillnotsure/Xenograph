@@ -26,6 +26,12 @@ public class Output : MonoBehaviour {
         bar.MoveBar(input);
     }
 
+    public void NewLine()
+    {
+        fullText += " ";
+        textmesh.text += "\n";
+    }
+
     public void SendRecord()
     {
         GameObject.Find("GameManager").GetComponent<RecordChecker>().ReceiveRecord(fullText);

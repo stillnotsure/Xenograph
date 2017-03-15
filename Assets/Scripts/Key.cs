@@ -31,8 +31,6 @@ public class Key : MonoBehaviour {
 
     void SendOutput(string output){
         Output target = manager.GetTarget();
-        Debug.Log(manager);
-        Debug.Log(target);
         if (target != null) target.ReceiveInput(output);
     }
 

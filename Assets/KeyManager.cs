@@ -11,7 +11,7 @@ public class KeyManager : MonoBehaviour {
         if (target != null)
         {
             this.target = target.GetComponentInChildren<Output>();
-        }
+        }   
     }
 
     public Output GetTarget()

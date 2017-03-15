@@ -33,8 +33,7 @@ public class Bar : MonoBehaviour {
         GameObject paper = GameObject.FindGameObjectWithTag("Active Paper");
         if (paper != null)
         {
-            Debug.Log(paper.transform.FindChild("TextInput"));
-            paper.transform.FindChild("TextInput").GetComponent<TextMesh>().text += "\n";
+            paper.transform.FindChild("TextInput").GetComponent<Output>().NewLine();
             paper.GetComponent<Paper>().MoveUp(distancePerLine);
         }
 
@@ -45,9 +44,7 @@ public class Bar : MonoBehaviour {
         if (!moving)
         { // do nothing if already moving
             moving = true; // signals "I'm moving, don't bother me!"
-            float t = 0f;
             float time = 1f / (1.42f - transform.position.x );
-            Debug.Log(time);
             Vector3 targetPos = new Vector3(1.42f, transform.position.y, transform.position.z);
             while (transform.position != targetPos)
             {

@@ -10,26 +10,30 @@ public class Line
 public class RecordChecker : MonoBehaviour {
 
     private List<string> dialogueList;
-    private string record;
-    public int score;
+    private string record = "";
+    public float score;
 
     public int pointsPerLetter = 2;
     public int pointsDeductedPerExtraLetter = 1;
-    public int maxPoints;
+    public float maxPoints;
 
     public void ReceiveRecord(string record)
     {
-        this.record += record;
-        Debug.Log(this.record);
+        this.record += record + " ";
     }
 
     void Start()
     {
         dialogueList = new List<string>();
-        Debug.Log("test");
-        Debug.Log(dialogueList.Count);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Slash))
+        {
+            CheckRecords();
+        }
+    }
     //Two approaches:
     //  Every time dialogue is received, take the neccesary parts of it and add them to a string list
     //  Or add the dialogue itself to a list, and use the extra information for parsing later
@@ -44,8 +48,6 @@ public class RecordChecker : MonoBehaviour {
             {
                 dialogueList.Add(dialogue.dialogue);
             }
-
-            Debug.Log(dialogueList[dialogueList.Count-1]);
         }
     }
 
@@ -54,13 +56,13 @@ public class RecordChecker : MonoBehaviour {
         foreach (string s in dialogueList)
         {
             maxPoints += s.Length * pointsPerLetter;
-            int test = record.IndexOf(s);
-            Debug.Log(test);
+            int test = record.IndexOf(s.ToLower());
             if (test != -1) {
                 score += (pointsPerLetter * s.Length);
                 record.Remove(test, s.Length);
             }
         }
+        Debug.Log(score / maxPoints);
     }
 
 }

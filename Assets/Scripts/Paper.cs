@@ -18,7 +18,6 @@ public class Paper : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D coll)
     {
-        Debug.Log("Enter " + coll.transform.name);
         if (coll.transform.name == "InkPoint")
         {
             inFrontOfInkPoint = true;
@@ -33,6 +32,7 @@ public class Paper : MonoBehaviour {
         }
         else if (coll.transform.name == "Outbox")
         {
+            transform.Find("TextInput").GetComponent<Output>().SendRecord();
             Destroy(gameObject);
             Instantiate(flatPaperObject);
         }
@@ -40,7 +40,6 @@ public class Paper : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D coll)
     {
-        Debug.Log("Exit " + coll.transform.name);
         if (coll.transform.name == "InkPoint")
         {
             inFrontOfInkPoint = false;
@@ -53,6 +52,10 @@ public class Paper : MonoBehaviour {
 
     void PickedUp(Vector3 mouseCoords)
     {
+        if (loaded)
+        {
+            GameObject.Find("Typewriter-Bar").GetComponent<Bar>().PullLever();
+        }
         GameObject.FindGameObjectWithTag("Input Device").GetComponent<KeyManager>().SetTarget(null);
         transform.SetParent(null);
         transform.tag = "Untagged";
@@ -62,8 +65,6 @@ public class Paper : MonoBehaviour {
 
     public void MoveUp(float increment)
     {
-        Debug.Log("Previous locked height" + lockedHeight);
-        Debug.Log("Previous locked height" + increment);
         lockedHeight -= increment;
 
         GameObject paperLoadedCollider = GameObject.Find("PaperLoadedCollider");

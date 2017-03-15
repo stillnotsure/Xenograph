@@ -10,6 +10,7 @@ public class ScenePlayer : MonoBehaviour {
     public int moment;
     private float timer;
     private Dialogue curDialogue;
+    public List<Actor> actors;
 
     void Start()
     {
@@ -56,7 +57,7 @@ public class ScenePlayer : MonoBehaviour {
         if (moment >= 0)
         {
             Debug.Log(dialogue.dialogue);
-            //DialogueSystem.newDialogue(dialogue);
+            actors[dialogue.actor].SayLine(dialogue.dialogue);
             gameObject.GetComponent<RecordChecker>().ReceiveDialogue(dialogue);
         }
     }
