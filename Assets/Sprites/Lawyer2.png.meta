@@ -1,22 +1,20 @@
 fileFormatVersion: 2
-guid: e295d61e757573847afd896e78ccf6c9
-timeCreated: 1489612119
+guid: 636b4965e52680045b8589de3b75b4d6
+timeCreated: 1489611459
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Lawyer1_0
-    21300002: Lawyer1_1
-    21300004: Lawyer1_2
-    21300006: Lawyer1_3
-    21300008: Lawyer1_4
-    21300010: Lawyer1_5
-    21300012: Lawyer1_6
-    21300014: Lawyer1_7
-    21300016: Lawyer1_8
-    21300018: Lawyer1_9
-    21300020: Lawyer1_10
-    21300022: Lawyer1_11
-    21300024: Lawyer1_12
+    21300000: Lawyer2_0
+    21300002: Lawyer2_1
+    21300004: Lawyer2_2
+    21300006: Lawyer2_3
+    21300008: Lawyer2_4
+    21300010: Lawyer2_5
+    21300012: Lawyer2_6
+    21300014: Lawyer2_7
+    21300016: Lawyer2_8
+    21300018: Lawyer2_9
+    21300020: Lawyer2_10
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -83,103 +81,90 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lawyer1_0
+      name: Lawyer2_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 593
-        width: 159
-        height: 175
+        y: 592
+        width: 163
+        height: 177
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Lawyer1_1
+      name: Lawyer2_1
       rect:
         serializedVersion: 2
-        x: 178
-        y: 590
-        width: 159
-        height: 175
+        x: 176
+        y: 592
+        width: 163
+        height: 177
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Lawyer1_2
+      name: Lawyer2_2
       rect:
         serializedVersion: 2
-        x: 345
-        y: 590
-        width: 160
-        height: 175
+        x: 347
+        y: 592
+        width: 163
+        height: 177
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Lawyer1_3
+      name: Lawyer2_3
       rect:
         serializedVersion: 2
-        x: 510
-        y: 586
-        width: 174
-        height: 182
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5192308}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Lawyer1_4
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 737
-        width: 22
-        height: 6
+        x: 527
+        y: 592
+        width: 163
+        height: 177
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Lawyer1_5
+      name: Lawyer2_4
       rect:
         serializedVersion: 2
-        x: 706
+        x: 697
+        y: 736
+        width: 23
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lawyer2_5
+      rect:
+        serializedVersion: 2
+        x: 704
         y: 716
-        width: 10
+        width: 9
         height: 9
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Lawyer1_6
+      name: Lawyer2_6
       rect:
         serializedVersion: 2
-        x: 802
-        y: 49
-        width: 365
-        height: 688
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Lawyer1_7
-      rect:
-        serializedVersion: 2
-        x: 18
+        x: 16
         y: 288
-        width: 168
+        width: 167
         height: 274
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
@@ -187,72 +172,59 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Lawyer1_8
+      name: Lawyer2_7
       rect:
         serializedVersion: 2
-        x: 262
-        y: 292
-        width: 82.154785
-        height: 257
+        x: 265
+        y: 289
+        width: 78
+        height: 254
       alignment: 9
-      pivot: {x: 0.49905798, y: 0.5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Lawyer1_9
+      name: Lawyer2_8
       rect:
         serializedVersion: 2
-        x: 363
+        x: 360
         y: 327
         width: 180
-        height: 187
+        height: 186
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Lawyer1_10
+      name: Lawyer2_9
       rect:
         serializedVersion: 2
-        x: 587
-        y: 326
-        width: 179
+        x: 585
+        y: 325
+        width: 178
         height: 189
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Lawyer1_11
+      name: Lawyer2_10
       rect:
         serializedVersion: 2
-        x: 1236
-        y: 112
-        width: 251
-        height: 593
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Lawyer1_12
-      rect:
-        serializedVersion: 2
-        x: 94.911064
+        x: 90
         y: 0
-        width: 80.049065
-        height: 270.05072
+        width: 85
+        height: 271
       alignment: 9
-      pivot: {x: 0.49455836, y: 0.4906486}
+      pivot: {x: 0.5, y: 0.48708487}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     outline: []
   spritePackingTag: 
-  userData: 97623217095569
+  userData: 97623204961253
   assetBundleName: 
   assetBundleVariant: 
