@@ -20,17 +20,9 @@ public class Actor : MonoBehaviour {
     public void SayLine(string line)
     {
         GameObject speechBubble = GameObject.Instantiate(speechBubblePrefab);
-        DestroyOldSpeechBubble();
         speechBubbleScript = speechBubble.GetComponent<SpeechBubble>();
         speechBubbleScript.SetSpeaker(this);
         speechBubbleScript.ReceiveText(line);
     }
 
-    private void DestroyOldSpeechBubble()
-    {
-        if (speechBubbleScript)
-        {
-            speechBubbleScript.Destroy();
-        }
-    }
 }

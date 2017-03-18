@@ -19,13 +19,33 @@ public class SpeechBubble : MonoBehaviour {
     private string displayedText;
     private Text textComponent;
     private float xBuffer = 4f;
+    private bool textFinished;
+    private float timer = 10f;
 
 	// Use this for initialization
 	void Awake () {
         gameObject.transform.SetParent(GameObject.Find("Canvas").transform, false);
         textComponent = gameObject.transform.Find("Text").GetComponent<Text>();
+        textFinished = false;
 	}
-	
+
+    void Update()
+    {
+        //Destroys the object an amount of time after the text is finished displaying
+        if (textFinished)
+        {
+            if (timer <= 0)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                timer -= Time.deltaTime;
+            }
+        }
+
+    }
+
     //Finds a good starting point near the speaker
     private void SetPosition()
     {
@@ -43,6 +63,8 @@ public class SpeechBubble : MonoBehaviour {
             x = speaker.transform.position.x - xBuffer;
         }
         gameObject.transform.position = new Vector3(x, y, transform.position.z);
+        //TODO - Text appears letter at a time, don't set to finished until last letter shown
+        textFinished = true;
     }
 
     public void SetSpeaker(Actor speaker)
