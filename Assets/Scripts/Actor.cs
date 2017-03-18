@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour {
 
+    private Animator animator;
     public string actorName;
     public string representation;
     public GameObject speechBubblePrefab;
@@ -15,6 +16,7 @@ public class Actor : MonoBehaviour {
         {
             representation = actorName;
         }
+        animator = this.GetComponent<Animator>();
     }
 
     public void SayLine(string line)
@@ -23,6 +25,20 @@ public class Actor : MonoBehaviour {
         speechBubbleScript = speechBubble.GetComponent<SpeechBubble>();
         speechBubbleScript.SetSpeaker(this);
         speechBubbleScript.ReceiveText(line);
+    }
+
+    public void PerformAction(ActingDirection.DirectionType action)
+    {
+        if (action == ActingDirection.DirectionType.SitDown)
+        {
+            animator.SetTrigger("SitDown");
+            animator.ResetTrigger("StandUp");
+        }
+        else if (action == ActingDirection.DirectionType.StandUp)
+        {
+            animator.SetTrigger("StandUp");
+            animator.ResetTrigger("SitDown");
+        }
     }
 
 }
