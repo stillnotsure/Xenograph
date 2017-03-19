@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour {
 
+    public GameObject head;
     private Animator animator;
     public string actorName;
     public string representation;
@@ -11,7 +12,7 @@ public class Actor : MonoBehaviour {
     private SpeechBubble speechBubbleScript;
 
     void Start()
-    {
+    {   
         if (representation == null)
         {
             representation = actorName;
@@ -39,6 +40,19 @@ public class Actor : MonoBehaviour {
             animator.SetTrigger("StandUp");
             animator.ResetTrigger("SitDown");
         }
+    }
+
+    public void SetTalking(bool isTalking)
+    {
+        if (head)
+        {
+            head.GetComponent<Animator>().SetBool("Talking", isTalking);
+        }
+        else
+        {
+            Debug.Log(actorName + "has no head");
+        }
+        Debug.Log(actorName + ": " + isTalking);
     }
 
 }

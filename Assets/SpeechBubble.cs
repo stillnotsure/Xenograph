@@ -19,6 +19,8 @@ public class SpeechBubble : MonoBehaviour {
     private string displayedText;
     private Text textComponent;
     private float xBuffer = 4f;
+
+    private float timeUntilFinished;
     private bool textFinished;
     private float timer = 10f;
 
@@ -32,7 +34,7 @@ public class SpeechBubble : MonoBehaviour {
     void Update()
     {
         //Destroys the object an amount of time after the text is finished displaying
-        if (textFinished)
+        if (textFinished == true)
         {
             if (timer <= 0)
             {
@@ -41,6 +43,14 @@ public class SpeechBubble : MonoBehaviour {
             else
             {
                 timer -= Time.deltaTime;
+            }
+        } else
+        {
+            timeUntilFinished -= Time.deltaTime;
+            if (timeUntilFinished <= 0)
+            {
+                textFinished = true;
+                speaker.SetTalking(false);
             }
         }
 
@@ -64,18 +74,20 @@ public class SpeechBubble : MonoBehaviour {
         }
         gameObject.transform.position = new Vector3(x, y, transform.position.z);
         //TODO - Text appears letter at a time, don't set to finished until last letter shown
-        textFinished = true;
     }
 
     public void SetSpeaker(Actor speaker)
     {
         this.speaker = speaker;
         SetPosition();
+        speaker.SetTalking(true);
     }
 
 	public void ReceiveText(string text)
     {
         textComponent.text = (text);
+        timeUntilFinished = text.Length * 0.06f; //TODO : Replace this with chars appearing a letter at a time
+        Debug.Log(text + ": " + timeUntilFinished);
     }
 
     public void Destroy()
