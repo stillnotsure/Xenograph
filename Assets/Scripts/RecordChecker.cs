@@ -37,14 +37,16 @@ public class RecordChecker : MonoBehaviour {
     //Two approaches:
     //  Every time dialogue is received, take the neccesary parts of it and add them to a string list
     //  Or add the dialogue itself to a list, and use the extra information for parsing later
-    public void ReceiveDialogue(Dialogue dialogue)
+    public void ReceiveDialogue(ActingDirection dialogue)
     {
         if (dialogue.marked)
         {
+            /*
             if (dialogue.representation != "")
             {
                 dialogueList.Add(dialogue.representation);
             } else
+            */
             {
                 dialogueList.Add(dialogue.dialogue);
             }

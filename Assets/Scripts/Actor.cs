@@ -28,14 +28,14 @@ public class Actor : MonoBehaviour {
         speechBubbleScript.ReceiveText(line);
     }
 
-    public void PerformAction(ActingDirection.DirectionType action)
+    public void PerformAnimation(ActingDirection.Animation animation)
     {
-        if (action == ActingDirection.DirectionType.SitDown)
+        if (animation == ActingDirection.Animation.SitDown)
         {
             animator.SetTrigger("SitDown");
             animator.ResetTrigger("StandUp");
         }
-        else if (action == ActingDirection.DirectionType.StandUp)
+        else if (animation == ActingDirection.Animation.StandUp)
         {
             animator.SetTrigger("StandUp");
             animator.ResetTrigger("SitDown");

@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class Scene : ScriptableObject
 {
-    public List<Dialogue> moments;
+    public List<ActingDirection> directions;
 }

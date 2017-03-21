@@ -5,30 +5,58 @@ using UnityEditorInternal;
 [CustomEditor(typeof(Scene))]
 public class LevelDataEditor : Editor
 {
+    private int actorWidth = 30;
+    private int directionTypeWidth = 100;
+    private int timeStartWidth = 30;
+    private int dialogueWidth = 600;
+    private int markedWidth = 30;
+    private int animationWidth = 300;
     private ReorderableList list;
 
     private void OnEnable()
     {
         list = new ReorderableList(serializedObject,
-                serializedObject.FindProperty("moments"),
+                serializedObject.FindProperty("directions"),
                 true, true, true, true);
 
         list.drawElementCallback =
         (Rect rect, int index, bool isActive, bool isFocused) => {
             var element = list.serializedProperty.GetArrayElementAtIndex(index);
             rect.y += 2;
+            int xTotal = 0;
+            //Generic Fields
             EditorGUI.PropertyField(
-                new Rect(rect.x, rect.y, 60, EditorGUIUtility.singleLineHeight),
+                new Rect(rect.x + xTotal, rect.y, actorWidth, EditorGUIUtility.singleLineHeight),
                 element.FindPropertyRelative("actor"), GUIContent.none);
+            xTotal += actorWidth;
             EditorGUI.PropertyField(
-                new Rect(rect.x + 60, rect.y, 600, EditorGUIUtility.singleLineHeight),
-                element.FindPropertyRelative("dialogue"), GUIContent.none);
-            EditorGUI.PropertyField(
-                new Rect(rect.x + rect.width - 55, rect.y, 40, EditorGUIUtility.singleLineHeight),
+                new Rect(rect.x + xTotal, rect.y, timeStartWidth, EditorGUIUtility.singleLineHeight),
                 element.FindPropertyRelative("timeStart"), GUIContent.none);
+            xTotal += timeStartWidth;
             EditorGUI.PropertyField(
-                new Rect(rect.x + rect.width - 10, rect.y, 20, EditorGUIUtility.singleLineHeight),
-                element.FindPropertyRelative("marked"), GUIContent.none);
+                new Rect(rect.x + xTotal, rect.y, directionTypeWidth, EditorGUIUtility.singleLineHeight),
+                element.FindPropertyRelative("directionType"), GUIContent.none);
+            xTotal += directionTypeWidth;
+            //Dialogue Fields
+            if (element.FindPropertyRelative("directionType").enumValueIndex == (int)ActingDirection.DirectionType.Dialogue)
+            {
+                EditorGUI.PropertyField(
+                    new Rect(rect.x + xTotal, rect.y, rect.width - xTotal - markedWidth, EditorGUIUtility.singleLineHeight),
+                    element.FindPropertyRelative("dialogue"), GUIContent.none);
+                xTotal += (int)(rect.width - xTotal - markedWidth);
+                EditorGUI.PropertyField(
+                    new Rect(rect.x + xTotal, rect.y, rect.width - xTotal, EditorGUIUtility.singleLineHeight),
+                    element.FindPropertyRelative("marked"), GUIContent.none);
+                xTotal += markedWidth;
+            } else
+            //Animation Fields
+            if (element.FindPropertyRelative("directionType").enumValueIndex == (int)ActingDirection.DirectionType.Animation)
+            {
+                EditorGUI.PropertyField(
+                    new Rect(rect.x + xTotal, rect.y, rect.width-xTotal, EditorGUIUtility.singleLineHeight),
+                    element.FindPropertyRelative("animation"), GUIContent.none);
+                xTotal += animationWidth;
+            }
         };
     }
 

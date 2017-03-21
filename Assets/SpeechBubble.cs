@@ -85,9 +85,13 @@ public class SpeechBubble : MonoBehaviour {
 
 	public void ReceiveText(string text)
     {
-        textComponent.text = (text);
-        timeUntilFinished = text.Length * 0.06f; //TODO : Replace this with chars appearing a letter at a time
-        Debug.Log(text + ": " + timeUntilFinished);
+        if (text != "" || text != null)
+        {
+            textComponent.text = (text);
+            timeUntilFinished = text.Length * 0.06f; //TODO : Replace this with chars appearing a letter at a time
+            Debug.Log(text + ": " + timeUntilFinished);
+        }
+
     }
 
     public void Destroy()
