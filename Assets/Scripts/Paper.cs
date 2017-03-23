@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Paper : MonoBehaviour {
 
+    public bool instructionPaper = false;
     public GameObject flatPaperObject;
     public bool loaded = false;
     public bool inFrontOfInkPoint = false;
@@ -18,21 +19,38 @@ public class Paper : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D coll)
     {
+        Debug.Log(coll.transform.name);
         if (coll.transform.name == "InkPoint")
         {
-            inFrontOfInkPoint = true;
+            if (!instructionPaper)
+            {
+                inFrontOfInkPoint = true;
+            }
         }
         else if (coll.transform.name == "PaperLoadedCollider")
         {
-            transform.tag = "Active Paper";
-            transform.SetParent(GameObject.Find("Typewriter-Bar").transform);
-            GetComponent<Rigidbody2D>().isKinematic = true;
-            loaded = true;
-            GameObject.FindGameObjectWithTag("Input Device").GetComponent<KeyManager>().SetTarget(gameObject);
+            if (!instructionPaper)
+            {
+                transform.tag = "Active Paper";
+                transform.SetParent(GameObject.Find("Typewriter-Bar").transform);
+                GetComponent<Rigidbody2D>().isKinematic = true;
+                loaded = true;
+                GameObject.FindGameObjectWithTag("Input Device").GetComponent<KeyManager>().SetTarget(gameObject);
+            }
         }
         else if (coll.transform.name == "Outbox")
         {
-            transform.Find("TextInput").GetComponent<Output>().SendRecord();
+            Debug.Log("hit the fucking outbox");
+
+            if (!instructionPaper){
+                Debug.Log("Not Instruction Paper - Sending record");
+                transform.Find("TextInput").GetComponent<Output>().SendRecord();
+            }
+            else {
+                Debug.Log("Instruction Paper - Starting trial");
+                GameManager.GetInstance().CommenceTrial();
+            }
+            Debug.Log("Either way, Surely this should trigger");
             Destroy(gameObject);
             Instantiate(flatPaperObject);
         }
@@ -52,6 +70,7 @@ public class Paper : MonoBehaviour {
 
     void PickedUp(Vector3 mouseCoords)
     {
+        Debug.Log("Picked Up " + Time.time);
         if (loaded)
         {
             GameObject.Find("Typewriter-Bar").GetComponent<Bar>().PullLever();

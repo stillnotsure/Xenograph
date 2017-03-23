@@ -6,4 +6,5 @@ using UnityEngine;
 public class Scene : ScriptableObject
 {
     public List<ActingDirection> directions;
+    public AudioClip bgMusic;
 }

@@ -6,14 +6,16 @@ using UnityEngine;
 //Only works for one timer at a time
 public class ScenePlayer : MonoBehaviour {
 
+    private bool playing;
     public Scene scene;
     public int directionIndex;
     private ActingDirection curDirection;
     private float timer;
     public List<Actor> actors;
 
-    void Start()
+    public void Begin()
     {
+        playing = true;
         GetNextDirection();
     }
 
@@ -25,38 +27,43 @@ public class ScenePlayer : MonoBehaviour {
 
     void Update()
     {
-        if (timer <= 0)
+        if (playing)
         {
-            RunDirection(curDirection);
-            if (directionIndex < scene.directions.Count) {
-                GetNextDirection();
+            if (timer <= 0)
+            {
+                RunDirection(curDirection);
+                if (directionIndex < scene.directions.Count)
+                {
+                    GetNextDirection();
+                }
+                else
+                {
+                    directionIndex = -1;
+                }
             }
             else
             {
-                directionIndex = -1;
+                timer -= Time.deltaTime;
             }
-        }
-        else
-        {
-            timer -= Time.deltaTime;
+
+            if (timer <= 0)
+            {
+                RunDirection(curDirection);
+                if (directionIndex < scene.directions.Count)
+                {
+                    GetNextDirection();
+                }
+                else
+                {
+                    directionIndex = -1;
+                }
+            }
+            else
+            {
+                timer -= Time.deltaTime;
+            }
         }
 
-        if (timer <= 0)
-        {
-            RunDirection(curDirection);
-            if (directionIndex < scene.directions.Count)
-            {
-                GetNextDirection();
-            }
-            else
-            {
-                directionIndex = -1;
-            }
-        }
-        else
-        {
-            timer -= Time.deltaTime;
-        }
     }
 
     void GetNextDirection()
