@@ -26,7 +26,7 @@ public class SpeechBubble : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-        gameObject.transform.SetParent(GameObject.Find("Canvas").transform, false);
+        gameObject.transform.SetParent(GameObject.Find("Speech Bubbles").transform, false);
         textComponent = gameObject.transform.Find("Text").GetComponent<Text>();
         textFinished = false;
 	}
@@ -62,9 +62,7 @@ public class SpeechBubble : MonoBehaviour {
         float y = speaker.transform.position.y;
         float x;
 
-        float speakerX = Camera.main.WorldToScreenPoint(speaker.transform.position).x;
-        Debug.Log(speakerX);
-        Debug.Log(Screen.width / 2);
+        float speakerX = Camera.main.WorldToScreenPoint(speaker.transform.position).x;   
         if (speakerX < Screen.width / 2)
         {
             x = speaker.transform.position.x + xBuffer;
@@ -89,7 +87,6 @@ public class SpeechBubble : MonoBehaviour {
         {
             textComponent.text = (text);
             timeUntilFinished = text.Length * 0.06f; //TODO : Replace this with chars appearing a letter at a time
-            Debug.Log(text + ": " + timeUntilFinished);
         }
 
     }

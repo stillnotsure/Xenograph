@@ -10,8 +10,13 @@ public class Bar : MonoBehaviour {
     public float distancePerSpace = -0.07f;
     public float distancePerLine = -0.2f;
     //public float distanceWhenFull = 26;
+    private GameObject paperLoadedCollider;
 
-	
+	void Start()
+    {
+        paperLoadedCollider = GameObject.Find("PaperLoadedCollider");
+    }
+
 	public void MoveBar(string key)
     {
         if (key == " ")
@@ -59,5 +64,10 @@ public class Bar : MonoBehaviour {
     public void PullLever()
     {
         StartCoroutine(MoveRight());
+    }
+
+    public void ResetPaperHeight()
+    {
+        paperLoadedCollider.transform.localPosition = new Vector3(paperLoadedCollider.transform.localPosition.x, -5.38f);
     }
 }

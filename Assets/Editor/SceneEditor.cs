@@ -11,6 +11,8 @@ public class LevelDataEditor : Editor
     private int dialogueWidth = 600;
     private int markedWidth = 30;
     private int animationWidth = 300;
+    private int flipXWidth = 30;
+    private int targetPositionWidth = 300;
     private ReorderableList list;
 
     private void OnEnable()
@@ -56,6 +58,18 @@ public class LevelDataEditor : Editor
                     new Rect(rect.x + xTotal, rect.y, rect.width-xTotal, EditorGUIUtility.singleLineHeight),
                     element.FindPropertyRelative("animation"), GUIContent.none);
                 xTotal += animationWidth;
+            } else
+            //Position Fields
+            if (element.FindPropertyRelative("directionType").enumValueIndex == (int)ActingDirection.DirectionType.Position)
+            {
+                EditorGUI.PropertyField(
+                    new Rect(rect.x + xTotal, rect.y, flipXWidth, EditorGUIUtility.singleLineHeight),
+                    element.FindPropertyRelative("flipX"), GUIContent.none);
+                xTotal += flipXWidth;
+                EditorGUI.PropertyField(
+                    new Rect(rect.x + xTotal, rect.y, rect.width - xTotal, EditorGUIUtility.singleLineHeight),
+                    element.FindPropertyRelative("targetPosition"), GUIContent.none);
+                xTotal += targetPositionWidth;
             }
         };
     }

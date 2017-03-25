@@ -11,7 +11,8 @@ public struct ActingDirection {
     public enum DirectionType
     {
         Dialogue,
-        Animation
+        Animation,
+        Position,
     };
     public enum Animation
     {
@@ -21,5 +22,7 @@ public struct ActingDirection {
     public DirectionType directionType;
     public Animation animation;
     public string dialogue;
+    public Vector3 targetPosition;
+    public bool flipX;
     public bool marked;
 }

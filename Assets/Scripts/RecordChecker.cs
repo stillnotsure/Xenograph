@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class Line
@@ -19,7 +20,21 @@ public class RecordChecker : MonoBehaviour {
 
     public void ReceiveRecord(string record)
     {
-        this.record += record + " ";
+        var sb = new StringBuilder();
+        char lastChar = ' ';
+        foreach (char c in record)
+        {
+            if (!(char.IsWhiteSpace(c) && char.IsWhiteSpace(lastChar)))
+            {
+                if (!char.IsPunctuation(c))
+                {
+                    sb.Append(c);
+                    lastChar = c;
+                }
+            }
+        }
+        this.record += sb.ToString() + " ";
+        Debug.Log(sb.ToString());
     }
 
     void Start()
@@ -27,13 +42,6 @@ public class RecordChecker : MonoBehaviour {
         dialogueList = new List<string>();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Slash))
-        {
-            CheckRecords();
-        }
-    }
     //Two approaches:
     //  Every time dialogue is received, take the neccesary parts of it and add them to a string list
     //  Or add the dialogue itself to a list, and use the extra information for parsing later
@@ -48,23 +56,41 @@ public class RecordChecker : MonoBehaviour {
             } else
             */
             {
-                dialogueList.Add(dialogue.dialogue);
+                string text = dialogue.dialogue;
+                var sb = new StringBuilder();
+
+                foreach (char c in text)
+                {
+                    if (!char.IsPunctuation(c))
+                        sb.Append(c);
+                }
+                dialogueList.Add(sb.ToString());
+                Debug.Log(sb.ToString());
             }
         }
     }
 
-    public void CheckRecords()
+    public float CheckRecords()
     {
         foreach (string s in dialogueList)
         {
-            maxPoints += s.Length * pointsPerLetter;
+            maxPoints += 1;
             int test = record.IndexOf(s.ToLower());
+            Debug.Log(s.ToLower());
             if (test != -1) {
-                score += (pointsPerLetter * s.Length);
+                score += 1;
                 record.Remove(test, s.Length);
             }
+            Debug.Log(s + ": " + score);
         }
-        Debug.Log(score / maxPoints);
+        if (score == 0 || maxPoints == 0)
+        {
+            return 0;
+        } else
+        {
+            return (score / maxPoints) * 100;
+        }
+
     }
 
 }

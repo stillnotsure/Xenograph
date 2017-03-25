@@ -39,23 +39,7 @@ public class ScenePlayer : MonoBehaviour {
                 else
                 {
                     directionIndex = -1;
-                }
-            }
-            else
-            {
-                timer -= Time.deltaTime;
-            }
-
-            if (timer <= 0)
-            {
-                RunDirection(curDirection);
-                if (directionIndex < scene.directions.Count)
-                {
-                    GetNextDirection();
-                }
-                else
-                {
-                    directionIndex = -1;
+                    GameManager.GetInstance().SetState(GameManager.States.postTrial);
                 }
             }
             else
@@ -87,6 +71,10 @@ public class ScenePlayer : MonoBehaviour {
             else if (direction.directionType == ActingDirection.DirectionType.Animation)
             {
                 actors[direction.actor].PerformAnimation(direction.animation);
+            }
+            else if (direction.directionType == ActingDirection.DirectionType.Position)
+            {
+                StartCoroutine(actors[direction.actor].Teleport(direction.targetPosition, direction.flipX));
             }
         }
     }
