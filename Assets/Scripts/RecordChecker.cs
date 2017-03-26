@@ -11,7 +11,7 @@ public class Line
 public class RecordChecker : MonoBehaviour {
 
     private List<string> dialogueList;
-    private string record = "";
+    private string record = null;
     public float score;
 
     public int pointsPerLetter = 2;
@@ -22,17 +22,21 @@ public class RecordChecker : MonoBehaviour {
     {
         var sb = new StringBuilder();
         char lastChar = ' ';
-        foreach (char c in record)
+        if (record != null)
         {
-            if (!(char.IsWhiteSpace(c) && char.IsWhiteSpace(lastChar)))
+            foreach (char c in record)
             {
-                if (!char.IsPunctuation(c))
+                if (!(char.IsWhiteSpace(c) && char.IsWhiteSpace(lastChar)))
                 {
-                    sb.Append(c);
-                    lastChar = c;
+                    if (!char.IsPunctuation(c))
+                    {
+                        sb.Append(c);
+                        lastChar = c;
+                    }
                 }
             }
         }
+        
         this.record += sb.ToString() + " ";
         Debug.Log(sb.ToString());
     }

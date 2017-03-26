@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class AudioAssets : MonoBehaviour {
 
-    public AudioClip bgMusic;
+    public List<AudioClip> assets;
+
 }

@@ -9,6 +9,16 @@ public class Paper : MonoBehaviour {
     public bool loaded = false;
     public bool inFrontOfInkPoint = false;
     private float lockedHeight = -3.1f;
+    private AudioManager am;
+    private AudioSource audioSource;
+    private AudioAssets audioAssets;
+
+    void Start()
+    {
+        am = AudioManager.GetInstance();
+        audioSource = GetComponent<AudioSource>();
+        audioAssets = GetComponent<AudioAssets>();
+    }
 
     void FixedUpdate()
     {
@@ -45,6 +55,7 @@ public class Paper : MonoBehaviour {
             else {
                 GameManager.GetInstance().SetState(GameManager.States.preTrial);
             }
+            am.PlayOnce(audioSource, audioAssets.assets[1]);
             Destroy(gameObject);
             Instantiate(flatPaperObject);
         }
@@ -64,6 +75,7 @@ public class Paper : MonoBehaviour {
 
     void PickedUp(Vector3 mouseCoords)
     {
+        am.PlayOnce(audioSource, audioAssets.assets[0]);
         if (loaded)
         {
             Bar bar = GameObject.Find("Typewriter-Bar").GetComponent<Bar>();
