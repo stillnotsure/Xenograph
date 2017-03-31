@@ -5,7 +5,7 @@ using UnityEngine;
 public class Output : MonoBehaviour {
 
     private Bar bar;
-    string fullText;
+    string fullText = "";
     TextMesh textmesh;
     private Paper paper;
 
@@ -17,7 +17,7 @@ public class Output : MonoBehaviour {
 	}
 	
     public void ReceiveInput(string input){
-        if (paper.inFrontOfInkPoint)
+        if (paper.inFrontOfInkPoint && !bar.moving && !bar.IsFarLeft())
         {
             fullText += input;
             textmesh.text += input;

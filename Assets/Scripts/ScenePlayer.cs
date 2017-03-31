@@ -19,6 +19,7 @@ public class ScenePlayer : MonoBehaviour {
         GetNextDirection();
     }
 
+
     void SetDirection(ActingDirection direction)
     {
         timer = direction.timeStart;

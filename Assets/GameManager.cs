@@ -13,9 +13,9 @@ public class GameManager : MonoBehaviour {
     private float timer;
 
     //Timers 
-    private float preTrialDuration = 2f;
+    private float preTrialDuration = 5f;
     private float postTrialDuration = 5f;
-
+    private float fadeOutDuration = 5f;
     public float score = 0;
 
     private Dictionary<States, float> stateTimers;
@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
         preTrial,
         trial,
         postTrial,
+        fadeOut,
         recap
     }
     public States state;
@@ -38,8 +39,6 @@ public class GameManager : MonoBehaviour {
         {
             timer = tryTimer;
         }
-        Debug.Log(timer);
-        Debug.Log("Switched to " + this.state);
     }
 
     void Awake()
@@ -61,6 +60,7 @@ public class GameManager : MonoBehaviour {
         stateTimers = new Dictionary<States, float>();
         stateTimers.Add(States.preTrial, preTrialDuration);
         stateTimers.Add(States.postTrial, postTrialDuration);
+        stateTimers.Add(States.fadeOut, fadeOutDuration);
         SetState(States.instructions);
     }
 
@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour {
             case (States.preTrial): PreTrial();
                 break;
             case (States.postTrial): PostTrial();
+                break;
+            case (States.fadeOut): FadeOut();
                 break;
             default: 
                 break;
@@ -102,16 +104,26 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    //Need to set timer to postTrialDuration before this point
     public void PostTrial()
+    {
+        if (timer <= 0)
+        {
+            SetState(States.fadeOut);
+        }
+        else
+        {
+            timer -= Time.deltaTime;
+        }
+    }
+    //Need to set timer to postTrialDuration before this point
+    public void FadeOut()
     {
         uiManager.FadeScreenToBlack(postTrialDuration);
         if (timer <= 0)
         {
             score = recordChecker.CheckRecords();
-            Debug.Log(score);
             SceneManager.LoadScene("Recap");
-            state = States.recap;
+            SetState(States.recap);
         } else
         {
             timer -= Time.deltaTime;

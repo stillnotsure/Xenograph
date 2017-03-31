@@ -11,7 +11,7 @@ public class Line
 public class RecordChecker : MonoBehaviour {
 
     private List<string> dialogueList;
-    private string record = null;
+    private string record = "";
     public float score;
 
     public int pointsPerLetter = 2;
@@ -20,25 +20,30 @@ public class RecordChecker : MonoBehaviour {
 
     public void ReceiveRecord(string record)
     {
-        var sb = new StringBuilder();
-        char lastChar = ' ';
-        if (record != null)
+        if (record != null || record != "")
+
         {
-            foreach (char c in record)
+            var sb = new StringBuilder();
+            char lastChar = ' ';
+            if (record != "")
             {
-                if (!(char.IsWhiteSpace(c) && char.IsWhiteSpace(lastChar)))
+                foreach (char c in record)
                 {
-                    if (!char.IsPunctuation(c))
+                    if (!(char.IsWhiteSpace(c) && char.IsWhiteSpace(lastChar)))
                     {
-                        sb.Append(c);
-                        lastChar = c;
+                        if (!char.IsPunctuation(c))
+                        {
+                            sb.Append(c);
+                            lastChar = c;
+                        }
                     }
                 }
             }
+
+            this.record += sb.ToString() + " ";
+
         }
-        
-        this.record += sb.ToString() + " ";
-        Debug.Log(sb.ToString());
+
     }
 
     void Start()
@@ -69,7 +74,7 @@ public class RecordChecker : MonoBehaviour {
                         sb.Append(c);
                 }
                 dialogueList.Add(sb.ToString());
-                Debug.Log(sb.ToString());
+
             }
         }
     }
@@ -80,12 +85,12 @@ public class RecordChecker : MonoBehaviour {
         {
             maxPoints += 1;
             int test = record.IndexOf(s.ToLower());
-            Debug.Log(s.ToLower());
+
             if (test != -1) {
                 score += 1;
                 record.Remove(test, s.Length);
             }
-            Debug.Log(s + ": " + score);
+
         }
         if (score == 0 || maxPoints == 0)
         {

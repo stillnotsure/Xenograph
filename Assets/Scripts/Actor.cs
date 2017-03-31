@@ -10,6 +10,7 @@ public class Actor : MonoBehaviour {
     private Animator animator;
     public string actorName;
     public string representation;
+
     public GameObject speechBubblePrefab;
     private SpeechBubble speechBubbleScript;
 
@@ -49,6 +50,7 @@ public class Actor : MonoBehaviour {
     public void SayLine(string line)
     {
         GameObject speechBubble = GameObject.Instantiate(speechBubblePrefab);
+        if (speechBubbleScript != null) speechBubbleScript.Disappear();
         speechBubbleScript = speechBubble.GetComponent<SpeechBubble>();
         speechBubbleScript.SetSpeaker(this);
         speechBubbleScript.ReceiveText(line);

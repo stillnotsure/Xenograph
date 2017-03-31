@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 
 /*Speech bubble for displaying dialogue
@@ -17,19 +18,28 @@ public class SpeechBubble : MonoBehaviour {
     public Actor speaker;
     private string fullText;
     private string displayedText;
-    private Text textComponent;
-    private float xBuffer = 4f;
+    private TextMeshProUGUI textComponent;
+    private float xBuffer = 3.2f;
+    public AnimationCurve exitScaleCurve;
 
     private float timeUntilFinished;
     private bool textFinished;
-    private float timer = 10f;
+    private float timer = 15f;
+
+    private float appearTime = 1f;
+    private float disappearTime = 1f;
 
 	// Use this for initialization
 	void Awake () {
         gameObject.transform.SetParent(GameObject.Find("Speech Bubbles").transform, false);
-        textComponent = gameObject.transform.Find("Text").GetComponent<Text>();
+        textComponent = gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>();
         textFinished = false;
 	}
+
+    void Start()
+    {
+        StartCoroutine(Appear());
+    }
 
     void Update()
     {
@@ -38,7 +48,7 @@ public class SpeechBubble : MonoBehaviour {
         {
             if (timer <= 0)
             {
-                Destroy(this.gameObject);
+                Disappear();
             }
             else
             {
@@ -85,14 +95,42 @@ public class SpeechBubble : MonoBehaviour {
     {
         if (text != "" || text != null)
         {
-            textComponent.text = (text);
+            textComponent.SetText(text);
             timeUntilFinished = text.Length * 0.06f; //TODO : Replace this with chars appearing a letter at a time
         }
 
     }
 
-    public void Destroy()
+    public IEnumerator Appear()
     {
-        Destroy(gameObject);
+        float elapsed = 0f;
+
+        while (elapsed < appearTime)
+        {
+            float scale = Mathf.Lerp(0, 1, exitScaleCurve.Evaluate(elapsed));
+            gameObject.transform.localScale = new Vector2(scale, scale);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public IEnumerator FadeOut()
+    {
+        float elapsed = 0f;
+
+        while (elapsed < disappearTime)
+        {
+            float scale = Mathf.Lerp(1, 0, exitScaleCurve.Evaluate(elapsed));
+            gameObject.transform.localScale = new Vector2(scale, scale); 
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        GameObject.Destroy(gameObject);
+    }
+
+    public void Disappear()
+    {
+        StartCoroutine(FadeOut());
     }
 }

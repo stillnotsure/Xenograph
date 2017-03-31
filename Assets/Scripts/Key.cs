@@ -6,6 +6,8 @@ public class Key : MonoBehaviour {
 
     private Animator animator;
     private KeyManager manager;
+    private AudioManager am;
+    public AudioClip keypressSound;
     public string inputKey;
     private KeyCode keyCode;
     public string outputKey;
@@ -14,6 +16,8 @@ public class Key : MonoBehaviour {
 	void Start () {
         animator = this.GetComponent<Animator>();
         manager = GameObject.FindGameObjectWithTag("Input Device").GetComponent<KeyManager>();
+        keypressSound = (AudioClip)Resources.Load("Typewriter-Key");
+        am = AudioManager.GetInstance();
         if (inputKey == "'")
         {
             keyCode = KeyCode.Quote;
@@ -26,6 +30,7 @@ public class Key : MonoBehaviour {
             animator.SetBool("Pressed", true);
             SendMessage("KeyDown", true);
             SendOutput(outputKey);
+            am.PlayOnce(am.localAudioSource, keypressSound);
         }
         else if (Input.GetKeyUp(inputKey))
         {

@@ -8,13 +8,17 @@ public class Paper : MonoBehaviour {
     public GameObject flatPaperObject;
     public bool loaded = false;
     public bool inFrontOfInkPoint = false;
-    private float lockedHeight = -3.1f;
+    private float lockedHeight = -3.11f;
     private AudioManager am;
     private AudioSource audioSource;
     private AudioAssets audioAssets;
+    private float sfxThrottleTimerLength = 0.3f;
+    private float sfxThrottleTimer;
+    private bool sfxPlayed = false;
 
     void Start()
     {
+        sfxThrottleTimer = sfxThrottleTimerLength;
         am = AudioManager.GetInstance();
         audioSource = GetComponent<AudioSource>();
         audioAssets = GetComponent<AudioAssets>();
@@ -22,10 +26,17 @@ public class Paper : MonoBehaviour {
 
     void FixedUpdate()
     {
+        sfxThrottleTimer -= Time.deltaTime;
         if (loaded)
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, lockedHeight, gameObject.transform.position.z);
         }
+        if (sfxThrottleTimer <= 0)
+        {
+            sfxPlayed = false;
+            sfxThrottleTimer = sfxThrottleTimerLength;
+        }
+
     }
     void OnTriggerEnter2D(Collider2D coll)
     {
@@ -44,6 +55,12 @@ public class Paper : MonoBehaviour {
                 transform.SetParent(GameObject.Find("Typewriter-Bar").transform);
                 GetComponent<Rigidbody2D>().isKinematic = true;
                 loaded = true;
+                Debug.Log("Loaded");
+                if (!sfxPlayed)
+                {
+                    am.PlayOnce(audioSource, audioAssets.assets[2]);
+                    sfxPlayed = true;
+                }
                 GameObject.FindGameObjectWithTag("Input Device").GetComponent<KeyManager>().SetTarget(gameObject);
             }
         }
@@ -55,8 +72,11 @@ public class Paper : MonoBehaviour {
             else {
                 GameManager.GetInstance().SetState(GameManager.States.preTrial);
             }
-            am.PlayOnce(audioSource, audioAssets.assets[1]);
-            Destroy(gameObject);
+            am.PlayOnce(am.GetComponent<AudioSource>(), audioAssets.assets[1]);
+            if (!instructionPaper)
+                Destroy(gameObject);
+            else
+                Destroy(gameObject.transform.parent.gameObject);
             Instantiate(flatPaperObject);
         }
     }
@@ -70,14 +90,17 @@ public class Paper : MonoBehaviour {
         else if (coll.transform.name == "PaperLoadedCollider")
         {
             loaded = false;
+            Debug.Log("Unloaded");
         }
     }
 
     void PickedUp(Vector3 mouseCoords)
     {
         am.PlayOnce(audioSource, audioAssets.assets[0]);
+        Debug.Log("Picked");
         if (loaded)
         {
+            Debug.Log("Loaded");
             Bar bar = GameObject.Find("Typewriter-Bar").GetComponent<Bar>();
             bar.PullLever();
             bar.ResetPaperHeight();
